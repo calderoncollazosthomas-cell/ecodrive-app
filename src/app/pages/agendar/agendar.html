@@ -1,0 +1,375 @@
+
+<div class="agendar-container py-5">
+
+  <!-- ENCABEZADO -->
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-success">Agenda tu recolección</h2>
+    <p class="text-muted">
+      Selecciona la fecha, los materiales y el reciclador de tu preferencia.
+    </p>
+  </div>
+
+  <div class="agendar-content">
+
+    <!-- CALENDARIO -->
+    <div class="calendar-card shadow-sm">
+
+      <div class="card-header">
+
+        <button
+          type="button"
+          class="month-button"
+          (click)="changeMonth(-1)"
+          [disabled]="currentMonth.getMonth() === today.getMonth() &&
+          currentMonth.getFullYear() === today.getFullYear()"
+          aria-label="Mes anterior">
+          &lt;
+        </button>
+
+        <h3>{{ monthName | uppercase }}</h3>
+
+        <button
+          type="button"
+          class="month-button"
+          (click)="changeMonth(1)"
+          aria-label="Mes siguiente">
+          &gt;
+        </button>
+
+      </div>
+
+      <div class="calendar-grid">
+
+        @for (weekDay of weekDays; track $index) {
+          <div class="day-name">{{ weekDay }}</div>
+        }
+
+        @for (day of calendarDays; track $index) {
+
+          @if (day) {
+
+            <button
+              type="button"
+              class="day"
+              [class.selected]="isSelected(day)"
+              [class.disabled]="day.disabled"
+              [disabled]="day.disabled"
+              (click)="selectDate(day)">
+
+              {{ day.day }}
+
+            </button>
+
+          } @else {
+
+            <div class="day empty"></div>
+
+          }
+
+        }
+
+      </div>
+
+      @if (selectedDate) {
+        <div class="selected-date mt-4">
+          <i class="bi bi-calendar-check text-success"></i>
+          Fecha seleccionada:
+
+          <strong>
+            {{ selectedDate | date:'dd/MM/yyyy' }}
+          </strong>
+        </div>
+      }
+
+    </div>
+
+
+    <!-- INFORMACIÓN DE LA CITA -->
+    <div class="info-card shadow-sm">
+
+      <h3>¿Qué material deseas reciclar?</h3>
+
+      <!-- MATERIALES -->
+      <div class="materials-grid">
+
+        @for (material of materials; track material.name) {
+
+          <button
+            type="button"
+            class="material-item"
+            [class.material-selected]="selectedMaterials.includes(material.name)"
+            [attr.aria-pressed]="selectedMaterials.includes(material.name)"
+            (click)="toggleMaterial(material.name)">
+
+            <div class="icon-box">
+              {{ material.icon }}
+            </div>
+
+            <p>{{ material.name }}</p>
+
+          </button>
+
+        }
+
+      </div>
+
+      <hr class="divider">
+
+      <!-- RECICLADORES -->
+      <h3>Recicladores Disponibles</h3>
+
+      <div class="recyclers-list">
+
+        @for (recycler of recyclers; track recycler.id) {
+
+          <button
+            type="button"
+            class="recycler-item"
+            [class.recycler-selected]="selectedRecycler === recycler.id"
+            [attr.aria-pressed]="selectedRecycler === recycler.id"
+            (click)="selectRecycler(recycler.id)">
+
+            <div class="recycler-info">
+
+              <span class="name">
+                {{ recycler.name }}
+              </span>
+
+              <span class="rating">
+                {{ recycler.rating }} ⭐
+              </span>
+
+            </div>
+
+            <span class="selection-circle">
+              @if (selectedRecycler === recycler.id) {
+                <i class="bi bi-check-lg"></i>
+              }
+            </span>
+
+          </button>
+
+        }
+
+      </div>
+
+      <!-- MENSAJE DE ERROR -->
+      @if (errorMessage) {
+
+        <div class="error-message mt-3" role="alert">
+          <i class="bi bi-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+
+      }
+
+      <!-- BOTÓN CONFIRMAR -->
+      <button
+        type="button"
+        class="btn btn-success w-100 mt-4 py-3 fw-bold rounded-pill"
+        (click)="confirmAppointment()">
+
+        Confirmar Cita
+        <i class="bi bi-check-circle ms-2"></i>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- MIS CITAS AGENDADAS -->
+  <section class="appointments-section">
+
+    <div class="appointments-header">
+
+      <div>
+        <h2>Mis citas agendadas</h2>
+
+        <p>
+          Consulta las recolecciones que has programado.
+        </p>
+      </div>
+
+      <span class="appointments-count">
+        {{ appointments.length }}
+        {{ appointments.length === 1 ? 'cita' : 'citas' }}
+      </span>
+
+    </div>
+
+
+    <!-- CUANDO EXISTEN CITAS -->
+    @if (appointments.length > 0) {
+
+      <div class="appointments-list">
+
+        @for (appointment of appointments; track appointment.id) {
+
+          <div class="appointment-card">
+
+            <div class="appointment-icon">
+              <i class="bi bi-calendar-check"></i>
+            </div>
+
+            <div class="appointment-info">
+
+              <h4>Recolección programada</h4>
+
+              <p>
+                <i class="bi bi-calendar-event"></i>
+                {{ appointment.date }}
+              </p>
+
+              <p>
+                <i class="bi bi-recycle"></i>
+                {{ appointment.materials.join(', ') }}
+              </p>
+
+              <p>
+                <i class="bi bi-person"></i>
+                {{ appointment.recycler }}
+              </p>
+
+            </div>
+
+            <span class="status-badge">
+              Confirmada
+            </span>
+
+          </div>
+
+        }
+
+      </div>
+
+    } @else {
+
+      <!-- CUANDO NO EXISTEN CITAS -->
+      <div class="empty-appointments">
+
+        <i class="bi bi-calendar2-plus"></i>
+
+        <h4>Aún no tienes citas agendadas</h4>
+
+        <p>
+          Cuando programes una recolección, aparecerá aquí.
+        </p>
+
+      </div>
+
+    }
+
+  </section>
+
+</div>
+
+
+<!-- VENTANA EMERGENTE DE CONFIRMACIÓN -->
+@if (showSuccessModal && confirmedAppointment) {
+
+  <div
+    class="modal-overlay"
+    (click)="closeModal()">
+
+    <div
+      class="success-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="success-title"
+      (click)="$event.stopPropagation()">
+
+      <button
+        type="button"
+        class="close-button"
+        aria-label="Cerrar"
+        (click)="closeModal()">
+
+        &times;
+
+      </button>
+
+      <div class="success-icon">
+        <i class="bi bi-check-lg"></i>
+      </div>
+
+      <h2 id="success-title">
+        ¡Cita agendada!
+      </h2>
+
+      <p class="success-description">
+        Tu solicitud de recolección ha sido registrada correctamente.
+        ¡Gracias por ayudar al planeta!
+      </p>
+
+
+      <!-- RESUMEN DE LA CITA -->
+      <div class="appointment-summary">
+
+        <div class="summary-item">
+
+          <i class="bi bi-calendar-event"></i>
+
+          <div>
+            <small>Fecha de recolección</small>
+
+            <strong>
+              {{ confirmedAppointment.date }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+          <i class="bi bi-recycle"></i>
+
+          <div>
+            <small>Materiales seleccionados</small>
+
+            <strong>
+              {{ confirmedAppointment.materials.join(', ') }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="summary-item">
+
+          <i class="bi bi-person-circle"></i>
+
+          <div>
+            <small>Reciclador asignado</small>
+
+            <strong>
+              {{ confirmedAppointment.recycler }}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="btn btn-success w-100 rounded-pill py-3 fw-bold"
+        (click)="closeModal()">
+
+        ¡Entendido!
+
+      </button>
+
+      <p class="modal-footer-text">
+        <i class="bi bi-leaf"></i>
+        EcoDrive, pequeños cambios grandes resultados.
+      </p>
+
+    </div>
+
+  </div>
+
+}

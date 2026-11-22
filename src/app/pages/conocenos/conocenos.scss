@@ -1,0 +1,27 @@
+
+.info-card {
+  background: #f1f8e9;
+  border-radius: 18px;
+  padding: 35px 25px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    color: #2e7d32;
+  }
+}
+
+img {
+  max-height: 420px;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  img {
+    max-height: 280px;
+  }
+}

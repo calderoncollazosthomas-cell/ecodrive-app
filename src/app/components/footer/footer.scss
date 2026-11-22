@@ -1,0 +1,37 @@
+footer {
+  background-color: #f1f8e9; /* Fondo verde muy clarito */
+  color: #333;
+  padding: 40px 20px 20px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 40px;
+
+  .footer-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    .column {
+      h4 {
+        color: #2e7d32; /* Verde oscuro para los títulos */
+        margin-bottom: 15px;
+      }
+      p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #555;
+      }
+    }
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #c8e6c9;
+    font-size: 12px;
+    color: #777;
+  }
+}

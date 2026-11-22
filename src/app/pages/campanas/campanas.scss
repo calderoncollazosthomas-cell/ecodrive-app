@@ -1,0 +1,22 @@
+
+.campaign-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
+  }
+}
+
+.campaign-image {
+  height: 210px;
+  object-fit: cover;
+}
+
+@media (max-width: 576px) {
+  .campaign-image {
+    height: 180px;
+  }
+}

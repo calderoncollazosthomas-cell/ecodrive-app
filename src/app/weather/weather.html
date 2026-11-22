@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      
+      <!-- Buscador -->
+      <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body">
+          <h4 class="card-title mb-3 text-primary"><i class="bi bi-cloud-sun-fill"></i> Clima en tu ciudad</h4>
+          <div class="input-group">
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="cityInput" 
+              (keyup.enter)="onSearch()" 
+              placeholder="Ej. Bogotá, Madrid, Buenos Aires..."
+              autocomplete="off"
+            />
+            <button class="btn btn-primary" (click)="onSearch()" [disabled]="loading">
+              @if (loading) {
+                <!-- Aquí agregamos el texto "Buscando..." -->
+                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span> Buscando...
+              } @else {
+                <i class="bi bi-search"></i> Buscar
+              }
+            </button>
+          </div>
+          @if (error) {
+            <div class="alert alert-danger mt-3 py-2 mb-0">{{ error }}</div>
+          }
+        </div>
+      </div>
+
+      <!-- Opciones si hay varias ciudades -->
+      @if (matches.length > 0) {
+        <div class="card shadow-sm mb-4 border-0">
+          <div class="list-group list-group-flush rounded">
+            @for (m of matches; track m.latitude) {
+              <button class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" (click)="selectCity(m)">
+                <span><i class="bi bi-geo-alt-fill text-danger"></i> {{ m.name }}, {{ m.country }}</span>
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Resultado del Clima -->
+      @if (selected && weather) {
+        <div class="card shadow border-0">
+          <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
+            <h5 class="mb-0"><i class="bi bi-geo-alt"></i> {{ selected.name }}, {{ selected.country }}</h5>
+            <span class="badge bg-light text-dark fs-6">{{ weatherService.weatherLabel(weather.current.weather_code) }}</span>
+          </div>
+          <div class="card-body text-center">
+            <h1 class="display-1 fw-bold text-primary mb-0">{{ weather.current.temperature_2m }}°C</h1>
+            <p class="text-muted mt-2 fs-5">
+              <i class="bi bi-droplet-half text-info"></i> Humedad: {{ weather.current.relative_humidity_2m }}% &nbsp;|&nbsp; 
+              <i class="bi bi-wind text-secondary"></i> Viento: {{ weather.current.wind_speed_10m }} km/h
+            </p>
+
+            <hr class="my-4">
+            <h6 class="text-start mb-3 text-secondary text-uppercase fw-bold">Pronóstico (7 días)</h6>
+            <div class="d-flex justify-content-between text-center overflow-auto pb-2">
+              @for (day of weather.daily.time; track day; let i = $index) {
+                <div class="px-2 flex-shrink-0">
+                  <small class="d-block text-muted">{{ day }}</small>
+                  <strong class="text-danger d-block">{{ weather.daily.temperature_2m_max[i] }}°</strong>
+                  <span class="text-primary">{{ weather.daily.temperature_2m_min[i] }}°</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+  </div>
+</div>

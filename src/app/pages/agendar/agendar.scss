@@ -1,0 +1,548 @@
+
+.agendar-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.agendar-content {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.calendar-card,
+.info-card {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+  padding: 25px;
+  width: 100%;
+  max-width: 475px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* CALENDARIO */
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border: none;
+
+  h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #555;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}
+
+.month-button {
+  background: transparent;
+  border: none;
+  color: #2e7d32;
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+
+.day-name {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #888;
+  padding: 10px 0;
+}
+
+.day {
+  height: 45px;
+  width: 45px;
+  justify-self: center;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.selected {
+    background: #2e7d32;
+    color: white;
+    font-weight: bold;
+  }
+
+  &.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.selected-date {
+  background: #f1f8e9;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+/* MATERIALES Y RECICLADORES */
+
+.info-card {
+  h3 {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 22px;
+    font-weight: 600;
+  }
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.material-item {
+  border: none;
+  background: transparent;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+
+  .icon-box {
+    background: #f5f5f5;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 18px 5px;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    transition: all 0.3s;
+  }
+
+  p {
+    font-size: 0.85rem;
+    margin: 0;
+    color: #555;
+    font-weight: 500;
+  }
+
+  &:hover .icon-box {
+    background: #e8f5e9;
+  }
+
+  &.material-selected .icon-box {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+  }
+
+  &.material-selected p {
+    color: #2e7d32;
+    font-weight: bold;
+  }
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin: 28px 0;
+}
+
+.recyclers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recycler-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: 1px solid #e5e5e5;
+  padding: 16px 18px;
+  border-radius: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+
+  &:hover,
+  &.recycler-selected {
+    border-color: #2e7d32;
+    background: #f7fbf5;
+  }
+}
+
+.recycler-info {
+  display: flex;
+  flex-direction: column;
+
+  .name {
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+
+  .rating {
+    font-size: 0.85rem;
+    color: #f9a825;
+    margin-top: 4px;
+  }
+}
+
+.selection-circle {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.recycler-selected .selection-circle {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.error-message {
+  background: #fff3f0;
+  color: #c0392b;
+  padding: 12px;
+  border-radius: 9px;
+  font-size: 0.9rem;
+}
+
+/* VENTANA EMERGENTE */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+.success-modal {
+  position: relative;
+  background: white;
+  width: 100%;
+  max-width: 460px;
+  padding: 35px;
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+  animation: appear 0.3s ease;
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  border: none;
+  background: transparent;
+  color: #777;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.success-icon {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto 20px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+.success-modal h2 {
+  color: #2e7d32;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.success-description {
+  color: #777;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.appointment-summary {
+  background: #f7faf6;
+  border-radius: 13px;
+  padding: 18px;
+  margin: 25px 0;
+  text-align: left;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  > i {
+    color: #2e7d32;
+    font-size: 1.4rem;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  small {
+    color: #888;
+  }
+
+  strong {
+    color: #333;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+  }
+}
+
+.modal-footer-text {
+  margin-top: 18px;
+  margin-bottom: 0;
+  color: #888;
+  font-size: 0.8rem;
+}
+
+/* MIS CITAS AGENDADAS */
+
+.appointments-section {
+  max-width: 980px;
+  margin: 55px auto 20px;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.appointments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+
+  h2 {
+    color: #2e7d32;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  p {
+    color: #888;
+    margin-bottom: 0;
+  }
+}
+
+.appointments-count {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.appointment-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  flex-wrap: wrap;
+}
+
+.appointment-icon {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.appointment-info {
+  flex: 1;
+
+  h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+
+  i {
+    color: #2e7d32;
+    margin-right: 6px;
+  }
+}
+
+.status-badge {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.empty-appointments {
+  text-align: center;
+  padding: 40px 15px;
+  color: #888;
+
+  > i {
+    display: block;
+    font-size: 3rem;
+    color: #81c784;
+    margin-bottom: 15px;
+  }
+
+  h4 {
+    color: #444;
+    font-size: 1.1rem;
+  }
+}
+
+/* ANIMACIONES */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .calendar-card,
+  .info-card {
+    max-width: 100%;
+  }
+
+  .agendar-content {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .appointments-section {
+    padding: 20px 15px;
+  }
+
+  .appointments-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .appointment-card {
+    align-items: flex-start;
+  }
+
+  .status-badge {
+    margin-left: 68px;
+  }
+
+  .day {
+    width: 36px;
+    height: 36px;
+  }
+
+  .success-modal {
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .materials-grid {
+    gap: 5px;
+  }
+
+  .material-item .icon-box {
+    padding: 14px 4px;
+  }
+
+  .card-header h3 {
+    font-size: 1rem;
+  }
+}

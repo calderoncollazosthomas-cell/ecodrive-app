@@ -1,0 +1,85 @@
+<!-- Banner Principal (Hero) -->
+<div class="hero-section text-center text-white d-flex align-items-center justify-content-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-3">Recogemos verde, cuidamos tu ciudad</h1>
+    <p class="lead mb-4">Pequeñas acciones hacen una gran diferencia. Únete a la revolución del reciclaje con EcoDrive.</p>
+    <!-- Botón que lleva a la página de agendar -->
+    <a routerLink="/agendar" class="btn btn-light btn-lg px-5 py-3 fw-bold text-success rounded-pill shadow">
+      Agendar Recolección <i class="bi bi-arrow-right ms-2"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Sección de Información (Sobre Nosotros) -->
+<div class="container my-5 py-4">
+  <div class="row align-items-center">
+    <div class="col-md-6 mb-4 mb-md-0">
+      <!-- Puedes cambiar esta URL por una imagen real de reciclaje -->
+      <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Reciclaje" class="img-fluid rounded-4 shadow">
+    </div>
+    <div class="col-md-6">
+      <h2 class="fw-bold text-success mb-3">Compromiso Ecológico</h2>
+      <p class="text-muted fs-5">En EcoDrive creemos que cada acción cuenta para construir un futuro más sostenible. Somos una iniciativa enfocada en facilitar el proceso de recolección, conectando a las personas con alternativas responsables para el aprovechamiento de materiales reciclables.</p>
+      <p class="text-muted fs-5">Nuestro objetivo es promover una cultura de reciclaje, ayudando a reducir la cantidad de residuos que llegan al medio ambiente y fomentando hábitos que generen un impacto positivo en nuestra comunidad.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Banners Informativos (Tarjetas) -->
+<div class="container mb-5 pb-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-success">¿Cómo funciona?</h2>
+    <p class="text-muted">Tres simples pasos para cuidar el planeta</p>
+  </div>
+  
+  <div class="row g-4 text-center">
+    <!-- Banner 1 -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm p-4 rounded-4 card-hover">
+        <div class="card-body">
+          <div class="icon-box mb-3">
+            <i class="bi bi-calendar-check text-success fs-1"></i>
+          </div>
+          <h4 class="card-title fw-bold">1. Agenda</h4>
+          <p class="card-text text-muted">Elige el día y la hora que mejor te convenga para entregar tus materiales reciclables.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Banner 2 -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm p-4 rounded-4 card-hover">
+        <div class="card-body">
+          <div class="icon-box mb-3">
+            <i class="bi bi-box-seam text-success fs-1"></i>
+          </div>
+          <h4 class="card-title fw-bold">2. Separa</h4>
+          <p class="card-text text-muted">Clasifica tus residuos (papel, cartón, vidrio, latas) y asegúrate de que estén limpios y secos.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Banner 3 -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm p-4 rounded-4 card-hover">
+        <div class="card-body">
+          <div class="icon-box mb-3">
+            <i class="bi bi-truck text-success fs-1"></i>
+          </div>
+          <h4 class="card-title fw-bold">3. Entrega</h4>
+          <p class="card-text text-muted">Nuestros recicladores aliados pasarán por tu ubicación para recoger el material.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN NUEVA: El Clima -->
+<div class="container mb-5 pb-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-success">¿Lloverá el día de tu recolección?</h2>
+    <p class="text-muted">Consulta el clima para preparar tus materiales reciclables.</p>
+  </div>
+  
+  <!-- Aquí incrustamos tu componente del clima -->
+  <app-weather></app-weather>
+  
+</div>

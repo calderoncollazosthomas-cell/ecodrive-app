@@ -1,0 +1,48 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #ffffff;
+  border-bottom: 2px solid #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #2e7d32; /* Verde oscuro EcoDrive */
+    text-decoration: none; /* Quita el subrayado porque ahora es un enlace <a> */
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #4CAF50; /* Verde claro al pasar el mouse */
+    }
+  }
+
+  nav {
+    display: flex;
+    gap: 30px;
+
+    a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 16px;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #4CAF50; /* Verde claro al pasar el mouse */
+      }
+
+      &.active {
+        border-bottom: 2px solid #2e7d32; /* Subrayado en la página actual */
+        color: #2e7d32;
+      }
+    }
+  }
+}
